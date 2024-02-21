@@ -1,0 +1,1 @@
+from .cookiecutterplus import CookieCutterPlusSkinny
