@@ -18,7 +18,7 @@ python --version
 Python 3.10.0
 ```
 
-### We use poetry to manage my dependencies.
+### We use poetry to manage dependencies.
 Read the [poetry documentation](https://python-poetry.org/docs/) for more information.
 ```
 pip install pipx
