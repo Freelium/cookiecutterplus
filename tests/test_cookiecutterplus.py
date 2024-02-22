@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from cookiecutterplus import CookieCutterPlusSkinny
+from cookiecutterplus import CookieCutterPlus
 
 @pytest.fixture
 def mock_determine_repo_dir():
@@ -27,7 +27,7 @@ def test_cookiecutter_plus_skinny_runs(mock_determine_repo_dir, mock_cookiecutte
     test_output_path = "test/output/path"
 
     # Instantiate and run your class
-    ccp = CookieCutterPlusSkinny(payload=test_payload, output_path=test_output_path)
+    ccp = CookieCutterPlus(payload=test_payload, output_path=test_output_path)
     ccp.run()
 
     # Assertions

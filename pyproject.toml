@@ -22,6 +22,7 @@ keywords = ["cookiecutter", "cookiecutterplus", "templating", "scaffolding"]
 # Compatible Python versions
 python = "^3.10"
 cookiecutter = "^2.6.0"
+flask = "^3.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.1"

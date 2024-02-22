@@ -4,9 +4,9 @@ from cookiecutter.repository import determine_repo_dir
 # import json
 
 
-class CookieCutterPlusSkinny:
-    def __init__(self, payload, output_path, no_input=True):
-        self.github_repo_prefix = "https://github.com/Tealium/tealium-cookiecutter.git"
+class CookieCutterPlus:
+    def __init__(self, template_repo, payload, output_path, no_input=True):
+        self.github_repo_prefix = f"https://github.com/{template_repo}.git"
         self.payload = payload
         self.output_path = output_path
         self.no_input = no_input
@@ -133,7 +133,6 @@ if __name__ == '__main__':
             }
         },
     }
-    CookieCutterPlusSkinny(payload=template_map,
+    CookieCutterPlus(payload=template_map,
                      output_path="output/",
                      no_input=True)
-
