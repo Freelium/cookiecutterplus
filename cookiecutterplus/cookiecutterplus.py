@@ -1,7 +1,7 @@
 from cookiecutter.main import cookiecutter
 from cookiecutter.repository import determine_repo_dir
-from jsonschema import validate
-import json
+# from jsonschema import validate
+# import json
 
 
 class CookieCutterPlusSkinny:
