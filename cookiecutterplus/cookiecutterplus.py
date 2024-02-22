@@ -15,14 +15,13 @@ class CookieCutterPlus:
     def run(self):
         for template, template_values in self.payload.items():
             print(f"On {template} with values {template_values}")
-            output = determine_repo_dir(template=self.github_repo_prefix,
-                                        directory=template_values["template_path"],
-                                        checkout="main",
-                                        clone_to_dir="./template_repo",
-                                        no_input=self.no_input,
-                                        abbreviations="gh")
             cookiecutter(
-                template=output[0],
+                template=determine_repo_dir(template=self.github_repo_prefix,
+                                            directory=template_values["template_path"],
+                                            checkout="main",
+                                            clone_to_dir="./template_repo",
+                                            no_input=self.no_input,
+                                            abbreviations="gh")[0],
                 no_input=self.no_input,
                 overwrite_if_exists=True,
                 extra_context=template_values["context_vars"],
