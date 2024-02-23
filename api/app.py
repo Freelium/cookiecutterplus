@@ -6,7 +6,8 @@ class CookieCutterPlusAPI:
         self.app = Flask(__name__)
         self.app.route('/generate', methods=['POST'])(self.generate)
 
-    def generate(self):
+    @staticmethod
+    def generate():
         data = request.json
 
         template_repo = data.get('template_repo')
