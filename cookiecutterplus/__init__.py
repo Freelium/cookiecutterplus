@@ -1,1 +1,1 @@
-from .cookiecutterplus import CookieCutterPlusSkinny
+from .cookiecutterplus import CookieCutterPlus

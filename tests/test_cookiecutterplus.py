@@ -1,6 +1,6 @@
-from pathlib import Path
-from cookiecutterplus import CookieCutterPlusSkinny
 
+from pathlib import Path
+from cookiecutterplus import CookieCutterPlus
 
 def test_cookiecutter_plus_skinny_runs(tmp_path):
     # Define your test payload and output path
@@ -13,5 +13,5 @@ def test_cookiecutter_plus_skinny_runs(tmp_path):
     test_output_path = Path(tmp_path, 'test/output/path')
 
     # Instantiate and run your class
-    ccp = CookieCutterPlusSkinny(payload=test_payload, output_path=test_output_path)
+    ccp = CookieCutterPlus(payload=test_payload, output_path=test_output_path)
     ccp.run()
