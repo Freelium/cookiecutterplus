@@ -9,21 +9,28 @@ ENV POETRY_NO_INTERACTION=1 \
 
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock README.md ./
+COPY api/ api/
+COPY cookiecutterplus/ cookiecutterplus/
 
-RUN poetry install --without dev && rm -rf $
+COPY pyproject.toml poetry.lock README.md LICENSE ./
+
+RUN poetry install --no-dev && poetry build && rm -rf $POETRY_CACHE_DIR
 
 
 # The runtime image, used to just run the code provided its virtual environment
-FROM python:3.11-slim-buster as runtime
+FROM python:3.10-slim-buster as runtime
+WORKDIR /app
 
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
-COPY api/ .
-COPY cookiecutterplus/ .
+COPY api/ api/
+COPY cookiecutterplus/ cookiecutterplus/
+
 EXPOSE 5000
 
-ENTRYPOINT ["poetry", "run", "cookiecutterplus", "-a", "True"]
+RUN python -m venv ${VIRTUAL_ENV} 
+
+ENTRYPOINT [ "cookiecutterplus", "-a", "true" ]

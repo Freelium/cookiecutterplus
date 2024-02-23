@@ -29,7 +29,7 @@ class CookieCutterPlusAPI:
         return jsonify({'message': 'CookieCutter generation completed successfully'}), 200
 
     def run(self):
-        self.app.run(debug=True)
+        self.app.run(host="0.0.0.0", port=5000, debug=True)
 
 
 if __name__ == '__main__':
