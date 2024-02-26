@@ -9,7 +9,7 @@ Cookiecutter+ can currently be ran as a CLI tool or a Docker container which run
 
 
 ### Docker Instructions
-Cookiecutter+ can also be ran as a Docker container.  When running as a container, Cookiecutter+ will start in API mode and you can then integrate this container as part of a workflow.
+Cookiecutter+ can be ran as a Docker container.  When running as a container, Cookiecutter+ will start in API mode and you can then integrate this container as part of an external workflow.
 
 #### Environment Variables
 | Environment Variable Name | Description                                                                                                           | Required | Default Value |
@@ -28,7 +28,7 @@ This is an example of how to run the Cookiecutter+ Docker image in this repo.
 #### How to hit the CookieCutterPlus API
 You can apply Cookiecutter Templates via a convenient API endpoint that accepts a JSON payload.
 
-See the below example for an example of how to use cURL to have CookieCutterPlus to apply 1 or more CookieCutter templates with the Docker container.
+See the below example for an example of how to use cURL the CookieCutter+ `/generate` endpoint to apply 1 or more CookieCutter templates with a JSON payload.
 
 ```
 curl --location 'http://127.0.0.1:9999/generate' \
