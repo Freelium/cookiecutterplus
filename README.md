@@ -12,9 +12,9 @@ Cookiecutter+ can currently be ran as a CLI tool or a Docker container which run
 Cookiecutter+ can also be ran as a Docker container.  When running as a container, Cookiecutter+ will start in API mode and you can then integrate this container as part of a workflow.
 
 #### Environment Variables
-| Environment Variable      | Description                                                                                                           | Default Value |
-|---------------------------|-----------------------------------------------------------------------------------------------------------------------|---------------|
-| GITHUB_TOKEN              | This variable should be a valid GitHub PAT token with permissions to the GH org where the cookiecutter templates live |          None |
+| Environment Variable Name | Description                                                                                                           | Required | Default Value |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------|----------|---------------|
+| GITHUB_TOKEN              | This variable should be a valid GitHub PAT token with permissions to the GH org where the cookiecutter templates live |     True |          None |
 
 #### How to run the Docker container
 This is an example of how to run the Cookiecutter+ Docker image in this repo.
