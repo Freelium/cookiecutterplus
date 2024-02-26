@@ -10,7 +10,7 @@ class CookieCutterPlus:
         self.authenticate_github_cli()
 
     def authenticate_github_cli(self):
-        gh_token = os.environ.get('GH_TOKEN')
+        gh_token = os.environ.get('GITHUB_TOKEN')
         if gh_token is None:
             raise ValueError("GH_TOKEN environment variable not set")
         subprocess.run(["gh", "auth", "login", "--with-token"], input=gh_token.encode())
