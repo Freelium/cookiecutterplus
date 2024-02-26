@@ -21,6 +21,15 @@ RUN poetry install --no-dev && poetry build && rm -rf $POETRY_CACHE_DIR
 FROM python:3.10-slim-buster as runtime
 WORKDIR /app
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git gnupg software-properties-common curl \
+    && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends gh \
+    && git config --global credential.helper '!gh auth git-credential' \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 
