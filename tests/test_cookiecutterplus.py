@@ -2,16 +2,22 @@
 from pathlib import Path
 from cookiecutterplus import CookieCutterPlus
 
-def test_cookiecutter_plus_skinny_runs(tmp_path):
+def test_cookiecutter_plus_runs(tmp_path):
     # Define your test payload and output path
     test_payload = {
-        "template1": {
-            "template_path": "cookiecutter/shared/cookiecutter-gha",
-            "context_vars": {"key1": "value1", "key2": "value2"}
-        }
+        "template_repo": "Tealium/tealium-cookiecutter",
+        "output_path": "meep",
+        "payload": {
+            "gha": {
+                "template_path": "cookiecutter/shared/cookiecutter-gha",
+                "context_vars": {
+                    "blah": 123
+                }
+            }
+        },
+        "no_input": True
     }
-    test_output_path = Path(tmp_path, 'test/output/path')
 
     # Instantiate and run your class
-    ccp = CookieCutterPlus(payload=test_payload, output_path=test_output_path)
+    ccp = CookieCutterPlus(test_payload)
     ccp.run()

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from cookiecutterplus import CookieCutterPlus
+from cookiecutterplus import CCPStateManager
 
 class CookieCutterPlusAPI:
     def __init__(self):
@@ -8,25 +9,14 @@ class CookieCutterPlusAPI:
 
     @staticmethod
     def generate():
-        data = request.json
-
-        template_repo = data.get('template_repo')
-        payload = data.get('payload')
-        output_path = data.get('output_path')
-        no_input = data.get('no_input', True)
-
-        if not template_repo or not payload or not output_path:
-            return jsonify({'error': 'Missing required parameters'}), 400
-
-        # Instantiate your CookieCutterPlus class and run the process
-        cookie_cutter_instance = CookieCutterPlus(
-            template_repo,
-            payload,
-            output_path,
-            no_input
-        )
-
-        return jsonify({'message': 'CookieCutter generation completed successfully'}), 200
+        try:
+            data = CCPStateManager().validate_args(request.json)
+            print(f"data {data}")
+            # Instantiate your CookieCutterPlus class and run the process
+            CookieCutterPlus(data).run()
+            return jsonify({'message': 'CookieCutter generation completed successfully'}), 200
+        except ValueError as e:
+            return jsonify({'error': f"Missing required parameters {e}"}), 400
 
     def run(self):
         self.app.run(debug=True)

@@ -33,4 +33,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-cookiecutterplus = "cookiecutterplus.cookiecutterplus:cli"
+cookiecutterplus = "cookiecutterplus.ccpcli:cli"
