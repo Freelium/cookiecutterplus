@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "cookiecutterplus"
+version = "0.1.0"
+description = "A wrapper for cookiecutter that adds some extra features"
+
+license = "BSD-3-Clause"
+
+authors = [
+    "Ernest Ramirez <ernest.ramirez@tealium.com>",
+    "Clyde Tedrick <clyde.tedrick@tealium.com>",
+]
+
+repository = "https://github.com/Freelium/cookiecutterplus"
+
+# README file(s) are used as the package description
+readme = ["README.md", "LICENSE"]
+
+# Keywords (translated to tags on the package index)
+keywords = ["cookiecutter", "cookiecutterplus", "templating", "scaffolding"]
+
+[tool.poetry.dependencies]
+# Compatible Python versions
+python = "^3.10"
+cookiecutter = "^2.6.0"
+flask = "^3.0.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.1"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+cookiecutterplus = "cookiecutterplus.ccpcli:cli"
