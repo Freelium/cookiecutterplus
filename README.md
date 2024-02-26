@@ -18,8 +18,12 @@ Cookiecutter+ can also be ran as a Docker container.  When running as a containe
 
 #### How to run the CookieCutterPlus Docker container
 This is an example of how to run the Cookiecutter+ Docker image in this repo.
-
-`docker run -e GITHUB_TOKEN=my_pat_token -p 9999:5000 -v ./output:app/output/ cookiecutterplus:$image_tag`
+```
+ docker run -e GITHUB_TOKEN=my_pat_token \
+            -p 9999:5000 \
+            -v ./output:app/output/ \
+            cookiecutterplus:$image_tag
+```
 
 #### How to hit the CookieCutterPlus API
 You can apply Cookiecutter Templates via a convenient API endpoint that accepts a JSON payload.
