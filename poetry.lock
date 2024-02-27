@@ -918,6 +918,21 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "waitress"
+version = "3.0.0"
+description = "Waitress WSGI server"
+optional = false
+python-versions = ">=3.8.0"
+files = [
+    {file = "waitress-3.0.0-py3-none-any.whl", hash = "sha256:2a06f242f4ba0cc563444ca3d1998959447477363a2d7e9b8b4d75d35cfd1669"},
+    {file = "waitress-3.0.0.tar.gz", hash = "sha256:005da479b04134cdd9dd602d1ee7c49d79de0537610d653674cc6cbde222b8a1"},
+]
+
+[package.extras]
+docs = ["Sphinx (>=1.8.1)", "docutils", "pylons-sphinx-themes (>=1.0.9)"]
+testing = ["coverage (>=5.0)", "pytest", "pytest-cov"]
+
+[[package]]
 name = "werkzeug"
 version = "3.0.1"
 description = "The comprehensive WSGI web application library."
@@ -937,4 +952,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "2ae3bda19c34d59b8be9e588356f37bfbd1b493c51e26ff69088cf388a2f845b"
+content-hash = "49258156ef1c64e2be26a2a660a07ef6cfd5c47e4fd59327d0df81949e27fdce"
