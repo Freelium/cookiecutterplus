@@ -11,7 +11,7 @@ class CCPStateManager:
                 'default': False
             },
             'template_repo': {
-                'flags': ['-t', '--template_repo'],
+                'flags': ['-t', '--template-repo'],
                 'type': str,
                 'help': 'The template repo to use',
                 'required': True,
@@ -25,14 +25,14 @@ class CCPStateManager:
                 'default': None
             },
             'output_path': {
-                'flags': ['-o', '--output_path'],
+                'flags': ['-o', '--output-path'],
                 'type': str,
                 'help': 'The output path to use',
                 'required': True,
                 'default': None
             },
             'no_input': {
-                'flags': ['-n', '--no_input'],
+                'flags': ['-n', '--no-input'],
                 'type': bool,
                 'help': 'If enabled, you will be prompted for variable input.',
                 'required': False,
