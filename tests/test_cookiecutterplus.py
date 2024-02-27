@@ -1,4 +1,6 @@
 import yaml
+import pytest
+from jsonschema import ValidationError
 from cookiecutterplus import CookieCutterPlus
 
 def test_cookiecutter_basic_backwards_compat(tmp_path):
@@ -66,3 +68,30 @@ def test_cookiecutter_basic(tmp_path):
             "name": "my-cut-cookie",
             "additive": "this is additive"
         }
+
+def test_cookiecutter_basic_invalid_additive(tmp_path):
+    test_payload = {
+        "output_path": tmp_path,
+        "payload": {
+            "gha": {
+                "template_context": "tests/fixtures/basic",
+                "template_path": "",
+                "context_vars": {
+                    "component_name": "My Cut Cookie",
+                    "project_name": "my-cut-cookie",
+                    "project_slug": "my-cut-cookie",
+                },
+                "ccplus": {
+                    "invalid_attribute": "this should fail :("
+                }
+            }
+        },
+        "no_input": True
+    }
+
+    # Instantiate and run your class
+    ccp = CookieCutterPlus(test_payload)
+    with pytest.raises(ValidationError) as exc_info:
+        ccp.run()
+    print(f'error value {exc_info.value}')
+    assert str(exc_info.value).startswith("'additive' is a required property")
