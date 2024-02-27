@@ -1,0 +1,5 @@
+{
+    "component_name": "My Component",
+    "project_name": "terraform-{{ cookiecutter.component_name.lower().replace('_', '-') }}",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}"
+}

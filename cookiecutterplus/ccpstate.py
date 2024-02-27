@@ -10,13 +10,6 @@ class CCPStateManager:
                 'required': False,
                 'default': False
             },
-            'template_repo': {
-                'flags': ['-t', '--template_repo'],
-                'type': str,
-                'help': 'The template repo to use',
-                'required': True,
-                'default': None
-            },
             'payload': {
                 'flags': ['-p', '--payload'],
                 'type': dict,

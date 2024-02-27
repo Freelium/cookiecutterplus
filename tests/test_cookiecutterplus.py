@@ -1,17 +1,17 @@
-
-from pathlib import Path
+import yaml
 from cookiecutterplus import CookieCutterPlus
 
 def test_cookiecutter_plus_runs(tmp_path):
-    # Define your test payload and output path
     test_payload = {
-        "template_repo": "Tealium/tealium-cookiecutter",
-        "output_path": "meep",
+        "output_path": tmp_path,
         "payload": {
             "gha": {
-                "template_path": "cookiecutter/shared/cookiecutter-gha",
+                "template_context": "tests/fixtures/basic-backwards",
+                "template_path": "",
                 "context_vars": {
-                    "blah": 123
+                    "component_name": "My Cut Cookie",
+                    "project_name": "my-cut-cookie",
+                    "project_slug": "my-cut-cookie"
                 }
             }
         },
@@ -21,3 +21,12 @@ def test_cookiecutter_plus_runs(tmp_path):
     # Instantiate and run your class
     ccp = CookieCutterPlus(test_payload)
     ccp.run()
+
+    dir = tmp_path / "my-cut-cookie"
+    simple_yaml_file = dir / "simple.yaml"
+
+    assert dir.is_dir()
+    assert simple_yaml_file.is_file()
+    with open(simple_yaml_file) as f:
+        data = yaml.safe_load(f)
+        assert data == {"name": "my-cut-cookie"}

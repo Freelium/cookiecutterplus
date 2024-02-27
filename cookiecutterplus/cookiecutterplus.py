@@ -8,14 +8,13 @@ import tempfile
 class CookieCutterPlus:
     def __init__(self, state):
         self.state = state
-        self.github_repo_prefix = f"https://github.com/{state.get('template_repo')}.git"
 
     def run(self):
         for template, template_values in self.state.get('payload').items():
             with tempfile.TemporaryDirectory() as temp_dir:
                 print(f"Applying template:{template} with context_vars:{template_values}")
                 cookiecutter(
-                    template=determine_repo_dir(template=self.github_repo_prefix,
+                    template=determine_repo_dir(template=template_values["template_context"],
                                                 directory=template_values["template_path"],
                                                 checkout="main",
                                                 clone_to_dir=temp_dir,
