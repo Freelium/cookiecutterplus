@@ -1,6 +1,6 @@
 from cookiecutter.main import cookiecutter
 from cookiecutter.repository import determine_repo_dir, is_repo_url
-from persistence.persistencebuilder import PersistenceFactory
+from persistence.persistencebuilder import PersistenceBuilder
 from jsonschema import validate
 import json, os, subprocess, tempfile
 
@@ -32,8 +32,13 @@ class CookieCutterPlus:
                 self.persist_output()
 
     def persist_output(self):
+        # Retrieve the persistence type and values from the state
+        # key in the persistence dictionary == persistence type
+        # values in the persistence dictionary == persistence values
         persistence_type, persistence_values = self.state.get('persistence').items()
-        persister = PersistenceFactory.get_persister(persistence_type)
+        # Setup the persister using the factory
+        persister = PersistenceBuilder.get_persister(persistence_type)
+        # Persist the output
         persister.persist(self.state.get('output_path'),
                           persistence_values["destination"])
 
