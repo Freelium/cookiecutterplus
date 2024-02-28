@@ -1,5 +1,6 @@
 from cookiecutter.main import cookiecutter
 from cookiecutter.repository import determine_repo_dir, is_repo_url
+from persistence.persistencebuilder import PersistenceFactory
 from jsonschema import validate
 import json, os, subprocess, tempfile
 
@@ -7,13 +8,7 @@ import json, os, subprocess, tempfile
 class CookieCutterPlus:
     def __init__(self, state):
         self.state = state
-        self.authenticate_github_cli()
 
-    def authenticate_github_cli(self):
-        gh_token = os.environ.get('GITHUB_TOKEN')
-        if gh_token is not None:
-            subprocess.run(["gh", "auth", "login", "--with-token"], input=gh_token.encode())
-    
     def run(self):
         for template, template_values in self.state.get('payload').items():
             with tempfile.TemporaryDirectory() as temp_dir:
@@ -34,6 +29,13 @@ class CookieCutterPlus:
                     extra_context=template_values["context_vars"],
                     output_dir=self.state.get('output_path')
                 )
+                self.persist_output()
+
+    def persist_output(self):
+        persister = PersistenceFactory.get_persister(self.state.get('persistence_type'))
+        template, template_values = self.state.get('payload').items()
+        persister.persist(self.state.get('output_path'), template_values["persistence"]["destination"])
+
 
     @staticmethod
     def evaluate_schema(template, template_values):

@@ -2,7 +2,7 @@ from githubpersister import GitHubPersister
 from localpersister import LocalPersister
 
 
-class PersistenceBuilder:
+class PersistenceFactory:
     @staticmethod
     def get_persister(persistence_type):
         if persistence_type == 'local':
