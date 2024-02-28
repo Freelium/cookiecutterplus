@@ -32,9 +32,10 @@ class CookieCutterPlus:
                 self.persist_output()
 
     def persist_output(self):
-        persister = PersistenceFactory.get_persister(self.state.get('persistence_type'))
-        template, template_values = self.state.get('payload').items()
-        persister.persist(self.state.get('output_path'), template_values["persistence"]["destination"])
+        persistence_type, persistence_values = self.state.get('persistence').items()
+        persister = PersistenceFactory.get_persister(persistence_type)
+        persister.persist(self.state.get('output_path'),
+                          persistence_values["destination"])
 
 
     @staticmethod
