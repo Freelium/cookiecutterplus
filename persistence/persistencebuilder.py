@@ -1,13 +1,13 @@
-from githubpersister import GitHubPersister
-from localpersister import LocalPersister
+from githubpersister import GithubPersistence
+from localpersister import LocalPersistence
 
 
-class PersistenceFactory:
+class PersistenceBuilder:
     @staticmethod
     def get_persister(persistence_type):
         if persistence_type == 'local':
-            return LocalPersister()
+            return LocalPersistence()
         if persistence_type == 'git':
-            return GitHubPersister()
+            return GithubPersistence()
         else:
             raise ValueError(f"Type: {persistence_type} is unsupported")

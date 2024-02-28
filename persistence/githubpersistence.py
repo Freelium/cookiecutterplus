@@ -2,7 +2,7 @@ from templatepersister import TemplatePersister
 import os, subprocess
 
 
-class GitHubPersister(TemplatePersister):
+class GithubPersistence(TemplatePersister):
 
     def authenticate_github_cli(self):
         gh_token = os.environ.get('GITHUB_TOKEN')

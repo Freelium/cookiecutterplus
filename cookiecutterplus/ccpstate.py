@@ -24,6 +24,13 @@ class CCPStateManager:
                 'required': True,
                 'default': None
             },
+            'persistence': {
+                'flags': ['-p', '--persistence'],
+                'type': dict,
+                'help': 'Persistence metadata to write out templates locally or to a GitHub repo.',
+                'required': False,
+                'default': None
+            },
             'no_input': {
                 'flags': ['-n', '--no_input'],
                 'type': bool,
