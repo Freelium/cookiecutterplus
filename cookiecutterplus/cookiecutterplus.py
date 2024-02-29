@@ -10,15 +10,18 @@ class CookieCutterPlus:
         self.state = state
 
     def run(self):
+        # Iterate over the payload and apply the templates
         for template, template_values in self.state.get('payload').items():
+            # Use a temporary directory to clone the template repo
             with tempfile.TemporaryDirectory() as temp_dir:
                 print(f"Applying template:{template} with context_vars:{template_values}")
+                # This method from the CookieCutter library will clone the templates
                 template = determine_repo_dir(template=template_values["template_context"],
                                               directory=template_values["template_path"],
                                               checkout="main",
                                               clone_to_dir=temp_dir,
-                                              no_input=self.state.get('no_input'),
-                                              abbreviations="gh")[0]
+                                              no_input=self.state.get('no_input'))[0]
+                # Evaluate the schema and patch the config
                 CookieCutterPlus.evaluate_schema(template, template_values)
                 print(f'run template values {template_values}')
                 print(f'template_values["context_vars"] {template_values["context_vars"]}')

@@ -7,7 +7,7 @@ class PersistenceBuilder:
     def get_persister(persistence_type):
         if persistence_type == 'local':
             return LocalPersistence()
-        if persistence_type == 'git':
+        if persistence_type == 'github' or 'gh':
             return GithubPersistence()
         else:
             raise ValueError(f"Type: {persistence_type} is unsupported")

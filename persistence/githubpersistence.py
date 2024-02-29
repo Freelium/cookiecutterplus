@@ -1,3 +1,7 @@
+import shutil
+import sys
+import tempfile
+
 from templatepersister import TemplatePersister
 import os, subprocess
 
@@ -8,7 +12,48 @@ class GithubPersistence(TemplatePersister):
         if gh_token is not None:
             subprocess.run(["gh", "auth", "login", "--with-token"], input=gh_token.encode())
 
-
     def persist(self, template, destination):
         # persistence logic goes here
         print("persisting template to github repo")
+        self.create_github_repo("test", "private")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            self.clone_repo(repo_name="test", clone_path=temp_dir)
+            self.copy_output_to_repo(output_path="output/", repo_path=temp_dir)
+            self.commit_and_push(temp_dir)
+
+    def create_github_repo(self, repo_name, repo_type):
+        try:
+            subprocess.run(["gh", "repo", "create", repo_name, repo_type, "--confirm"], check=True)
+            print(f"Repository: {repo_name} has been created successfully")
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to create repository: {e}")
+
+    def clone_repo(self, repo_name, clone_path):
+        try:
+            subprocess.run(["gh", "repo", "clone", repo_name, clone_path], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to clone repository: {e}")
+
+    def copy_output_to_repo(self, output_path, repo_path):
+        if not os.path.exists(output_path):
+            print("Output path does not exist")
+            exit(1)
+        try:
+            for item in os.listdir(output_path):
+                src = os.path.join(output_path, item)
+                dst = os.path.join(repo_path, item)
+                if os.path.isdir(src):
+                    shutil.copytree(src, dst, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(src, dst)
+            print("Templates copied successfully")
+        except Exception as e:
+            print(f"Failed to copy templates to destination repo: {e}")
+
+    def commit_and_push(self, repo_path):
+        try:
+            subprocess.run(["git", "add", "."], cwd=repo_path)
+            subprocess.run(["git", "commit", "-m", f"Pushing files in {repo_path}"], cwd=repo_path)
+            subprocess.run(["git", "push"], cwd=repo_path)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to commit and push to new repo: {e}")
