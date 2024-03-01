@@ -3,6 +3,7 @@ from waitress import serve
 from cookiecutterplus import CookieCutterPlus
 from cookiecutterplus import CCPStateManager
 
+
 class CookieCutterPlusAPI:
     def __init__(self):
         self.app = Flask(__name__)
@@ -20,7 +21,7 @@ class CookieCutterPlusAPI:
             return jsonify({'error': f"Missing required parameters {e}"}), 400
 
     def run(self):
-        serve(self.app, host='0.0.0.0', port=5000)
+        self.app.run(host='0.0.0.0', port=5000, debug=True)
 
 
 if __name__ == '__main__':

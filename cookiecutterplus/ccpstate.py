@@ -1,4 +1,4 @@
-import argparse
+import argparse, json
 
 class CCPStateManager:
     def __init__(self):
@@ -10,15 +10,15 @@ class CCPStateManager:
                 'required': False,
                 'default': False
             },
-            'payload': {
-                'flags': ['-p', '--payload'],
-                'type': dict,
+            'template_payload': {
+                'flags': ['-t', '--template-payload'],
+                'type': json.loads,
                 'help': 'The payload to use',
                 'required': True,
                 'default': None
             },
             'output_path': {
-                'flags': ['-o', '--output_path'],
+                'flags': ['-o', '--output-path'],
                 'type': str,
                 'help': 'The output path to use',
                 'required': True,
@@ -26,7 +26,7 @@ class CCPStateManager:
             },
             'persistence': {
                 'flags': ['-p', '--persistence'],
-                'type': dict,
+                'type': json.loads,
                 'help': 'Persistence metadata to write out templates locally or to a GitHub repo.',
                 'required': False,
                 'default': None

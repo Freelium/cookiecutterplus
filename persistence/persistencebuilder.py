@@ -1,12 +1,9 @@
-from githubpersister import GithubPersistence
-from localpersister import LocalPersistence
+from .githubpersistence import GithubPersistence
 
 
 class PersistenceBuilder:
     @staticmethod
     def get_persister(persistence_type):
-        if persistence_type == 'local':
-            return LocalPersistence()
         if persistence_type == 'github' or 'gh':
             return GithubPersistence()
         else:

@@ -11,16 +11,19 @@ class CookieCutterPlus:
 
     def run(self):
         # Iterate over the payload and apply the templates
-        for template, template_values in self.state.get('payload').items():
+        print(f"State {self.state.get('persistence').get('persistence').items()}")
+        print(f"Payload {self.state.get('template_payload').items()}")
+        for template, template_values in self.state.get('template_payload').get('payload').items():
+            print(f"Applying template:{template} with context_vars:{template_values}")
             # Use a temporary directory to clone the template repo
             with tempfile.TemporaryDirectory() as temp_dir:
-                print(f"Applying template:{template} with context_vars:{template_values}")
                 # This method from the CookieCutter library will clone the templates
                 template = determine_repo_dir(template=template_values["template_context"],
                                               directory=template_values["template_path"],
                                               checkout="main",
                                               clone_to_dir=temp_dir,
-                                              no_input=self.state.get('no_input'))[0]
+                                              no_input=self.state.get('no_input'),
+                                              abbreviations="gh")[0]
                 # Evaluate the schema and patch the config
                 CookieCutterPlus.evaluate_schema(template, template_values)
                 print(f'run template values {template_values}')
@@ -30,20 +33,21 @@ class CookieCutterPlus:
                     no_input=self.state.get('no_input'),
                     overwrite_if_exists=True,
                     extra_context=template_values["context_vars"],
-                    output_dir=self.state.get('output_path')
+                    output_dir=self.state.get('output_path'),
                 )
-                self.persist_output()
+        self.persist_output()
 
     def persist_output(self):
         # Retrieve the persistence type and values from the state
         # key in the persistence dictionary == persistence type
         # values in the persistence dictionary == persistence values
-        persistence_type, persistence_values = self.state.get('persistence').items()
-        # Setup the persister using the factory
-        persister = PersistenceBuilder.get_persister(persistence_type)
-        # Persist the output
-        persister.persist(self.state.get('output_path'),
-                          persistence_values["destination"])
+        print(f"Persistence {self.state.get('persistence').get('persistence').items()}")
+        for persistence_type, persistence_values in self.state.get('persistence').get('persistence').items():
+            # Setup the persistence class using the factory
+            persistence_class = PersistenceBuilder.get_persister(persistence_type)
+            # Persist the output
+            persistence_class.persist(f"{self.state.get('output_path')}/terraform-test-component",
+                              persistence_values["destination"])
 
 
     @staticmethod

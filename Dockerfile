@@ -12,6 +12,7 @@ WORKDIR /app
 # Copy the codebase to the working directory
 COPY api/ api/
 COPY cookiecutterplus/ cookiecutterplus/
+COPY persistence/ persistence/
 # Copy the pyproject.toml, poetry.lock, README.md, and LICENSE to the working directory
 COPY pyproject.toml poetry.lock README.md LICENSE ./
 # Install the dependencies
@@ -38,6 +39,7 @@ COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 # Copy the codebase to the working directory
 COPY api/ api/
 COPY cookiecutterplus/ cookiecutterplus/
+COPY persistence/ persistence/
 # Expose the API port
 EXPOSE 5000
 
