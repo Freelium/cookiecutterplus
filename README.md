@@ -20,6 +20,10 @@ Cookiecutter+ can be ran as a Docker container.  When running as a container, Co
 This is an example of how to run the Cookiecutter+ Docker image in this repo.
 ```
  docker run -e GITHUB_TOKEN=my_pat_token \
+            -e GIT_AUTHOR_EMAIL=my.name@test.com \
+            -e GIT_AUTHOR_NAME=MyName \
+            -e GIT_COMMITTER_EMAIL=my.name@test.com \
+            -e GIT_COMMITTER_NAME=MyName \
             -p 9999:5000 \
             -v ./output:app/output/ \
             cookiecutterplus:$image_tag
