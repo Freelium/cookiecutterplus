@@ -43,7 +43,7 @@ from cookiecutterplus import CookieCutterPlus
 def test_cookiecutter_basic_backwards_compat(tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "payload": {
+        "template_payload": {
             "gha": {
                 "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
@@ -73,7 +73,7 @@ def test_cookiecutter_basic_backwards_compat(tmp_path):
 def test_cookiecutter_basic(tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "payload": {
+        "template_payload": {
             "gha": {
                 "template_context": "tests/fixtures/basic",
                 "template_path": "",
@@ -109,7 +109,7 @@ def test_cookiecutter_basic(tmp_path):
 def test_cookiecutter_basic_invalid_additive(tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "payload": {
+        "template_payload": {
             "gha": {
                 "template_context": "tests/fixtures/basic",
                 "template_path": "",
