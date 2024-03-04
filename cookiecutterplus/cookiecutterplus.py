@@ -17,7 +17,10 @@ class CookieCutterPlus:
             print(f"Applying template:{template} with context_vars:{template_values}")
             # Use a temporary directory to clone the template repo
             with tempfile.TemporaryDirectory() as temp_dir:
-                # This method from the CookieCutter library will clone the templates
+                """.git/
+                This method from the CookieCutter library will clone the templates, 
+                    however it does have a dependency on Git or GH existing locally.
+                """
                 template = determine_repo_dir(template=template_values["template_context"],
                                               directory=template_values["template_path"],
                                               checkout="main",
@@ -35,7 +38,9 @@ class CookieCutterPlus:
                     extra_context=template_values["context_vars"],
                     output_dir=self.state.get('output_path'),
                 )
-        self.persist_output()
+        # If the persistence arg exists, run persist_output()
+        if self.state.get('persistence'):
+            self.persist_output()
 
     def persist_output(self):
         # Retrieve the persistence type and values from the state
