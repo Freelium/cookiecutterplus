@@ -11,8 +11,6 @@ class CookieCutterPlus:
 
     def run(self):
         # Iterate over the payload and apply the templates
-        print(f"State {self.state.get('persistence').items()}")
-        print(f"Payload {self.state.get('template_payload').items()}")
         for template, template_values in self.state.get('template_payload').items():
             print(f"Applying template:{template} with context_vars:{template_values}")
             # Use a temporary directory to clone the template repo
@@ -29,8 +27,6 @@ class CookieCutterPlus:
                                               abbreviations="gh")[0]
                 # Evaluate the schema and patch the config
                 CookieCutterPlus.evaluate_schema(template, template_values)
-                print(f'run template values {template_values}')
-                print(f'template_values["context_vars"] {template_values["context_vars"]}')
                 cookiecutter(
                     template=template,
                     no_input=self.state.get('no_input'),
@@ -46,7 +42,6 @@ class CookieCutterPlus:
         # Retrieve the persistence type and values from the state
         # key in the persistence dictionary == persistence type
         # values in the persistence dictionary == persistence values
-        print(f"Persistence {self.state.get('persistence').items()}")
         for persistence_type, persistence_values in self.state.get('persistence').items():
             # Setup the persistence class using the factory
             persistence_class = PersistenceBuilder.get_persister(persistence_type)
