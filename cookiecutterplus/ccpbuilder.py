@@ -10,7 +10,7 @@ class CookieCutterPlusBuilder:
         return self
 
     def build(self):
-        if self.args.get('api_mode', None) is None:
+        if self.args.get('api_mode', None) is False:
             return CookieCutterPlus(self.args)
         else:
             return CookieCutterPlusAPI()
