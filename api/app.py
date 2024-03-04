@@ -21,7 +21,7 @@ class CookieCutterPlusAPI:
             return jsonify({'error': f"Missing required parameters {e}"}), 400
 
     def run(self):
-        self.app.run(host='0.0.0.0', port=5000, debug=True)
+        serve(self.app, host='0.0.0.0', port=5000)
 
 
 if __name__ == '__main__':

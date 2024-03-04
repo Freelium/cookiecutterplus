@@ -1,7 +1,7 @@
 from .templatepersister import TemplatePersister
 import os, subprocess, shutil, tempfile
 
-
+# Evaluate whether it's worth updating this Class to use GitPython in the future
 class GithubPersistence(TemplatePersister):
     def __init__(self):
         gh_token = os.environ.get('GITHUB_TOKEN')
