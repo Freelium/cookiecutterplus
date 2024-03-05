@@ -10,12 +10,12 @@ class CCPStateManager:
                 'required': False,
                 'default': False
             },
-            'template_payload': {
-                'flags': ['-t', '--template-payload'],
-                'type': json.loads,
-                'help': 'The payload to use',
-                'required': True,
-                'default': None
+            'no_input': {
+                'flags': ['-n', '--no_input'],
+                'type': bool,
+                'help': 'If enabled, you will be prompted for variable input.',
+                'required': False,
+                'default': True
             },
             'output_path': {
                 'flags': ['-o', '--output-path'],
@@ -31,12 +31,12 @@ class CCPStateManager:
                 'required': False,
                 'default': None
             },
-            'no_input': {
-                'flags': ['-n', '--no_input'],
-                'type': bool,
-                'help': 'If enabled, you will be prompted for variable input.',
-                'required': False,
-                'default': True
+            'template_payload': {
+                'flags': ['-t', '--template-payload'],
+                'type': json.loads,
+                'help': 'The payload to use',
+                'required': True,
+                'default': None
             }
         }
 
