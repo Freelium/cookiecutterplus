@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify, ValidationError
+from flask import Flask, request, jsonify
+from marshmallow import ValidationError
 from waitress import serve
-from cookiecutterplus import CookieCutterPlus
-from cookiecutterplus import CCPStateManager
+from cookiecutterplus import CookieCutterPlus, CCPStateManager
 
 
 class CookieCutterPlusAPI:
