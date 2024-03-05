@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from marshmallow import ValidationError
 from waitress import serve
 from cookiecutterplus import CookieCutterPlus, CCPStateManager
+from .schema import MainSchema
 
 
 class CookieCutterPlusAPI:
