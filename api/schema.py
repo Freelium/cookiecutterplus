@@ -14,11 +14,11 @@ class RepoSchema(Schema):
 
 
 class PersistenceSchema(Schema):
-    github = fields.Nested(RepoSchema, required=False, missing=None, data_key="github")
     gh = fields.Nested(RepoSchema, required=False, missing=None)
 
 
 class MainSchema(Schema):
     output_path = fields.String(required=True)
-    persistence = fields.Nested(PersistenceSchema, required=True)
+    persistence = fields.Nested(PersistenceSchema, required=False, missing=None)
     template_payload = fields.Dict(keys=fields.Str(), values=fields.Nested(CookieCutterTemplateSchema), required=True)
+    no_input = fields.Boolean(required=False, missing=True)
