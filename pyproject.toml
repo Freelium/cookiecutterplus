@@ -25,6 +25,7 @@ cookiecutter = "^2.6.0"
 flask = "^3.0.2"
 jsonschema = "^4.21.1"
 waitress = "^3.0.0"
+marshmallow = "^3.21.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.1"
