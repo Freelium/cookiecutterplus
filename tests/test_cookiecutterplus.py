@@ -58,7 +58,7 @@ def test_cookiecutter_api(tmp_path):
             },
         },
         "output_path": tmp_path,
-        "no_input": True1  
+        "no_input": True 
     }
     # Send a POST request to the API
     response = requests.post(api_url, json=cookiecutterplus_payload)
