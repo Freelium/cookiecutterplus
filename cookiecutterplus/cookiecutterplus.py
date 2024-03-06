@@ -15,8 +15,8 @@ class CookieCutterPlus:
             print(f"Applying template:{template} with context_vars:{template_values}")
             # Use a temporary directory to clone the template repo
             with tempfile.TemporaryDirectory() as temp_dir:
-                """.git/
-                This method from the CookieCutter library will clone the templates, 
+                """
+                This determine_repo_dir method from the CookieCutter library will clone the templates, 
                     however it does have a dependency on Git or GH existing locally.
                 """
                 template = determine_repo_dir(template=template_values["template_context"],
