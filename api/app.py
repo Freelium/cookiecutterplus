@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from marshmallow import ValidationError
 from waitress import serve
-from cookiecutterplus import CookieCutterPlus, CCPStateManager
+from cookiecutterplus import CookieCutterPlus 
 from .schema import MainSchema
 
 
@@ -18,9 +18,8 @@ class CookieCutterPlusAPI:
             valid_data = schema.load(request.json)
         except ValidationError as e:
             return jsonify({'error': f"Invalid request {e}"}), 400
-        # Instantiate your CookieCutterPlus class and run the process
+        # After Validation, Instantiate your CookieCutterPlus class and run the process
         try:
-            print(f"Valid data {valid_data}\n type {type(valid_data)}")
             CookieCutterPlus(valid_data).run()
             return jsonify({'message': 'CookieCutter generation completed successfully'}), 201
         except ValueError or ValidationError as e:

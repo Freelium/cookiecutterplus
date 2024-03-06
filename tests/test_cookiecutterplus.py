@@ -1,6 +1,7 @@
 import yaml, pytest, requests
 from jsonschema import ValidationError
-from cookiecutterplus import CookieCutterPlus, CookieCutterPlusAPI
+from cookiecutterplus import CookieCutterPlus
+from api import CookieCutterPlusAPI
 
 @pytest.fixture
 def api_url():
@@ -65,7 +66,7 @@ def test_cookiecutter_api(tmp_path):
     assert response.status_code == 201
     # Assert the response message is 'CookieCutter generation completed successfully'
     assert response.json()['message'] == 'CookieCutter generation completed successfully'
-    
+
 
 
 
