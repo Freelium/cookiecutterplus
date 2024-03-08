@@ -1,5 +1,6 @@
 import argparse, json
 
+
 class CCPStateManager:
     def __init__(self):
         self.metadata = {
