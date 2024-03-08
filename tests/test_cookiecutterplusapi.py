@@ -62,7 +62,7 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
 # Import the githubpersistence class
 @patch('persistence.githubpersistence.GithubPersistence')
 # Test the CookieCutterPlusAPI with a persistence payload included
-def test_cookiecutter_api_persistence(tmp_path, client, mock_github_persistence):
+def test_cookiecutter_api_persistence(mock_github_persistence, client, tmp_path):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
