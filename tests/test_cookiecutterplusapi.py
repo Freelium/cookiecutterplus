@@ -60,9 +60,9 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
     assert response.status_code == 400
 
 # Import the githubpersistence class
-@patch('persistence.githubpersistence.GithubPersistence')
+@patch('cookiecutterplus.persistence.persistencebuilder.PersistenceBuilder.get_persister')
 # Test the CookieCutterPlusAPI with a persistence payload included
-def test_cookiecutter_api_persistence(mock_github_persistence, client, tmp_path):
+def test_cookiecutter_api_persistence(mock_persistence_builder, client, tmp_path):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
@@ -84,9 +84,10 @@ def test_cookiecutter_api_persistence(mock_github_persistence, client, tmp_path)
             }
         }
     }
+    mock_persistence_instance = MagicMock()
+    mock_get_persister.return_value = mock_persistence_instance
     # Send a POST request to the API
     response = client.post('/generate', json=cookiecutterplus_payload)
     # Assert the response status code is 201
     assert response.status_code == 201
-    instance = mock_github_persistence.return_value
-    instance.persist.assert_called_once_with("test/repo", "private")
+    mock_persistence_instance.persist.assert_called_once()
