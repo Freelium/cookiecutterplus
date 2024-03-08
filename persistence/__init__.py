@@ -1,1 +1,2 @@
-from .persistence import PersistenceBuilder, GithubPersistence
+from .persistencebuilder import PersistenceBuilder
+from .githubpersistence import GithubPersistence
