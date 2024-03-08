@@ -1,4 +1,4 @@
-import json, yaml, pytest, requests
+import json, pytest, requests
 from unittest.mock import patch, MagicMock
 from api import CookieCutterPlusAPI
 
@@ -16,7 +16,7 @@ def test_cookiecutter_api_success(tmp_path, client):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
-                "template_context": "tests/fixtures/basic-backwards",
+                "template_context": "test/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
                     "component_name": "My Cut Cookie",
@@ -59,14 +59,14 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
     # Assert the response status code is 201
     assert response.status_code == 400
 
-# Import the githubpersistence class
-@patch('cookiecutterplus.PersistenceBuilder.get_persister')
+# Import the persistencebuilder from cookiecutterplus class
+@patch('cookiecutterplus.cookiecutterplus.PersistenceBuilder.get_persister')
 # Test the CookieCutterPlusAPI with a persistence payload included
 def test_cookiecutter_api_persistence(mock_get_persister, client, tmp_path):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
-                "template_context": "tests/fixtures/basic-backwards",
+                "template_context": "test/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
                     "component_name": "My Cut Cookie",
