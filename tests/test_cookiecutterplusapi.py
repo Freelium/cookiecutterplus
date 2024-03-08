@@ -1,4 +1,4 @@
-import yaml, pytest, requests
+import json, yaml, pytest, requests
 from unittest.mock import patch, MagicMock
 from api import CookieCutterPlusAPI
 
