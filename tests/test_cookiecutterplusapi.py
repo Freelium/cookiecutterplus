@@ -25,7 +25,7 @@ def test_cookiecutter_api_success(tmp_path, client):
                 }
             },
         },
-        "output_path": tmp_path,
+        "output_path": f"{tmp_path}",
         "no_input": True
     }
     # Send a POST request to the API
@@ -51,7 +51,7 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
         "ccplus": {
             "badParameter": "badValue"
         },
-        "output_path": tmp_path,
+        "output_path": f"{tmp_path}",
         "no_input": True
     }
     # Send a POST request to the API
