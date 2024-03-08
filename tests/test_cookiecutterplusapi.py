@@ -55,6 +55,6 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
         "no_input": True
     }
     # Send a POST request to the API
-    response = client.post('/generate', json=json.loads(cookiecutterplus_payload))
+    response = client.post('/generate', json=cookiecutterplus_payload)
     # Assert the response status code is 201
     assert response.status_code == 400
