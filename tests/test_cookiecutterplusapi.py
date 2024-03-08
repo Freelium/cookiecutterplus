@@ -34,7 +34,7 @@ def test_cookiecutter_api_success(tmp_path, client):
     assert response.status_code == 201
 
 
-def test_cookiecutter_api_invalid_parameter(tmp_path, api_url):
+def test_cookiecutter_api_invalid_parameter(tmp_path, client):
     api = CookieCutterPlusAPI()
     cookiecutterplus_payload = {
         "template_payload": {
@@ -55,6 +55,6 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, api_url):
         "no_input": True
     }
     # Send a POST request to the API
-    response = client.post(api_url, json=json.loads(cookiecutterplus_payload))
+    response = client.post('/generate', json=json.loads(cookiecutterplus_payload))
     # Assert the response status code is 201
     assert response.status_code == 400
