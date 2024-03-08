@@ -6,7 +6,8 @@ from api import CookieCutterPlusAPI
 @pytest.fixture
 def client():
    api = CookieCutterPlusAPI()
-   api.config['TESTING'] = True
+   app = api.get_flask_app()
+   app.config['TESTING'] = True
    with app.test_client() as client:
        yield client 
 

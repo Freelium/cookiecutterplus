@@ -25,6 +25,9 @@ class CookieCutterPlusAPI:
         except ValueError or ValidationError as e:
             return jsonify({'error': f"Missing required parameters {e}"}), 400
 
+    def get_flask_app(self):
+        return self.app
+        
     def run(self):
         serve(self.app, host='0.0.0.0', port=5000)
 
