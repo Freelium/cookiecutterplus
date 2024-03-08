@@ -60,7 +60,7 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
     assert response.status_code == 400
 
 # Import the githubpersistence class
-@patch('cookiecutterplus.persistence.persistencebuilder.PersistenceBuilder.get_persister')
+@patch('cookiecutterplus.PersistenceBuilder.get_persister')
 # Test the CookieCutterPlusAPI with a persistence payload included
 def test_cookiecutter_api_persistence(mock_get_persister, client, tmp_path):
     cookiecutterplus_payload = {
