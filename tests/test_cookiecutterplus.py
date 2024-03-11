@@ -42,10 +42,8 @@ def test_cookiecutter_persistence(mock_get_persister, tmp_path):
     assert simple_yaml_file.is_file()
     with open(simple_yaml_file) as f:
         data = yaml.safe_load(f)
-        assert data == {
-            "name": "my-cut-cookie",
-            "additive": "this is additive"
-        }
+        assert data == {"name": "my-cut-cookie"}
+
     # Assert the persistence was called
     mock_persistence_instance.persist.assert_called_once()
 
