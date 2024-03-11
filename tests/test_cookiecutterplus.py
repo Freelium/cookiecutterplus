@@ -8,7 +8,7 @@ from unittest.mock import patch, MagicMock
 @patch('cookiecutterplus.cookiecutterplus.PersistenceBuilder.get_persister')
 # Test the CookieCutterPlusAPI with a persistence payload included
 def test_cookiecutter_persistence(mock_get_persister, tmp_path):
-    cookiecutterplus_payload = {
+    test_payload = {
         "output_path": tmp_path,
         "template_payload": {
             "gha": {
