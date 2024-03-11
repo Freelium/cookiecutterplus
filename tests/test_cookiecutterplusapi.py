@@ -16,7 +16,7 @@ def test_cookiecutter_api_success(tmp_path, client):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
-                "template_context": "fixtures/basic-backwards",
+                "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
                     "component_name": "My Cut Cookie",
@@ -39,7 +39,7 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
-                "template_context": "fixtures/basic-backwards",
+                "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
                     "component_name": "My Cut Cookie",
@@ -66,7 +66,7 @@ def test_cookiecutter_api_persistence(mock_get_persister, client, tmp_path):
     cookiecutterplus_payload = {
         "template_payload": {
             "gha": {
-                "template_context": "fixtures/basic-backwards",
+                "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
                     "component_name": "My Cut Cookie",
