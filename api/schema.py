@@ -21,4 +21,4 @@ class MainSchema(Schema):
     output_path = fields.String(required=True)
     persistence = fields.Nested(PersistenceSchema, required=False)
     template_payload = fields.Dict(keys=fields.Str(), values=fields.Nested(CookieCutterTemplateSchema), required=True)
-    no_input = fields.Boolean(required=False, default=True)
+    no_input = fields.Boolean(required=False, dump_default=True)
