@@ -9,6 +9,7 @@ from unittest.mock import patch, MagicMock
 # Test the CookieCutterPlusAPI with a persistence payload included
 def test_cookiecutter_persistence(mock_get_persister, tmp_path):
     cookiecutterplus_payload = {
+        "output_path": tmp_path,
         "template_payload": {
             "gha": {
                 "template_context": "tests/fixtures/basic-backwards",
@@ -20,7 +21,6 @@ def test_cookiecutter_persistence(mock_get_persister, tmp_path):
                 }
             },
         },
-        "output_path": f"{tmp_path}",
         "no_input": True,
         "persistence": {
             "gh": {
