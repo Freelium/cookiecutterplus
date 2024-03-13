@@ -46,7 +46,7 @@ class CookieCutterPlus:
             # Setup the persistence class using the factory
             persistence_class = PersistenceBuilder.get_persister(persistence_type)
             # Persist the output
-            persistence_class.persist(f"{self.state.get('output_path')}/terraform-test-component",
+            persistence_class.persist(self.state.get('output_path'),
                                       persistence_values["destination"])
 
     @staticmethod
