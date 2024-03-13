@@ -15,8 +15,8 @@ class CookieCutterPlus:
             print(f"Applying template:{template} with context_vars:{template_values}")
             # Use a temporary directory to clone the template repo
             with tempfile.TemporaryDirectory() as temp_dir:
-                """.git/
-                This method from the CookieCutter library will clone the templates, 
+                """
+                This determine_repo_dir method from the CookieCutter library will clone the templates, 
                     however it does have a dependency on Git or GH existing locally.
                 """
                 template = determine_repo_dir(template=template_values["template_context"],
@@ -46,7 +46,7 @@ class CookieCutterPlus:
             # Setup the persistence class using the factory
             persistence_class = PersistenceBuilder.get_persister(persistence_type)
             # Persist the output
-            persistence_class.persist(f"{self.state.get('output_path')}/terraform-test-component",
+            persistence_class.persist(self.state.get('output_path'),
                                       persistence_values["destination"])
 
     @staticmethod
