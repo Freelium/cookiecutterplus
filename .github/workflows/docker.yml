@@ -1,0 +1,31 @@
+name: Docker Build on PR 
+
+on:
+  pull_request:
+    paths:
+      - 'Dockerfile'
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: Freelium/cookiecutterplus:latest

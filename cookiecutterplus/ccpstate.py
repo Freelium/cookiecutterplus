@@ -1,4 +1,5 @@
-import argparse
+import argparse, json
+
 
 class CCPStateManager:
     def __init__(self):
@@ -10,33 +11,33 @@ class CCPStateManager:
                 'required': False,
                 'default': False
             },
-            'template_repo': {
-                'flags': ['-t', '--template_repo'],
-                'type': str,
-                'help': 'The template repo to use',
-                'required': True,
-                'default': None
-            },
-            'payload': {
-                'flags': ['-p', '--payload'],
-                'type': dict,
-                'help': 'The payload to use',
-                'required': True,
-                'default': None
-            },
-            'output_path': {
-                'flags': ['-o', '--output_path'],
-                'type': str,
-                'help': 'The output path to use',
-                'required': True,
-                'default': None
-            },
             'no_input': {
                 'flags': ['-n', '--no_input'],
                 'type': bool,
                 'help': 'If enabled, you will be prompted for variable input.',
                 'required': False,
                 'default': True
+            },
+            'output_path': {
+                'flags': ['-o', '--output-path'],
+                'type': str,
+                'help': 'The output path to use',
+                'required': True,
+                'default': None
+            },
+            'persistence': {
+                'flags': ['-p', '--persistence'],
+                'type': json.loads,
+                'help': 'Persistence metadata to write out templates locally or to a GitHub repo.',
+                'required': False,
+                'default': None
+            },
+            'template_payload': {
+                'flags': ['-t', '--template-payload'],
+                'type': json.loads,
+                'help': 'The payload to use',
+                'required': True,
+                'default': None
             }
         }
 

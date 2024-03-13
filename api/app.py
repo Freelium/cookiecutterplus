@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
-from cookiecutterplus import CookieCutterPlus
-from cookiecutterplus import CCPStateManager
+from marshmallow import ValidationError
+from waitress import serve
+from cookiecutterplus import CookieCutterPlus 
+from .schema import MainSchema
+
 
 class CookieCutterPlusAPI:
     def __init__(self):
@@ -9,17 +12,24 @@ class CookieCutterPlusAPI:
 
     @staticmethod
     def generate():
+        # Validate the incoming request's content using MainSchema
+        schema = MainSchema()
         try:
-            data = CCPStateManager().validate_args(request.json)
-            print(f"data {data}")
-            # Instantiate your CookieCutterPlus class and run the process
-            CookieCutterPlus(data).run()
-            return jsonify({'message': 'CookieCutter generation completed successfully'}), 200
-        except ValueError as e:
+            valid_data = schema.load(request.json)
+        except ValidationError as e:
+            return jsonify({'error': f"Invalid request {e}"}), 400
+        # After Validation, Instantiate your CookieCutterPlus class and run the process
+        try:
+            CookieCutterPlus(valid_data).run()
+            return jsonify({'message': 'CookieCutter generation completed successfully'}), 201
+        except ValueError or ValidationError as e:
             return jsonify({'error': f"Missing required parameters {e}"}), 400
 
+    def get_flask_app(self):
+        return self.app
+        
     def run(self):
-        self.app.run(host="0.0.0.0", port=5000, debug=True)
+        serve(self.app, host='0.0.0.0', port=5000)
 
 
 if __name__ == '__main__':
