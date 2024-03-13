@@ -48,16 +48,13 @@ class GithubPersistence(TemplatePersister):
         try:
             single_directory = next((os.path.join(output_path, item) for item in os.listdir(
                 output_path) if os.path.isdir(os.path.join(output_path, item))), None)
-            print(f"single directory: {single_directory}")
             if single_directory is None:
-                print(f"Output path: {
-                      output_folder_name} does not contain a folder")
+                print(f"Output path: {output_folder_name} does not contain a folder")
                 exit(1)
 
             for item in os.listdir(single_directory):
                 src = os.path.join(single_directory, item)
                 dst = os.path.join(repo_path, item)
-                print(f"copying {src} to {dst}")
                 if os.path.isdir(src):
                     shutil.copytree(src, dst, dirs_exist_ok=True)
                 else:
