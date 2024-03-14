@@ -14,5 +14,6 @@
     },
     "ccplus": {
         "additive": "this is additive"
-    }
+    },
+    "name": "gha"
 }

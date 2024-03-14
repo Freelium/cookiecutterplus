@@ -15,6 +15,7 @@ class CookieCutterPlusAPI:
         # Validate the incoming request's content using MainSchema
         schema = MainSchema()
         try:
+            print(f"Request JSON: {request.json}")
             valid_data = schema.load(request.json)
         except ValidationError as e:
             return jsonify({'error': f"Invalid request {e}"}), 400

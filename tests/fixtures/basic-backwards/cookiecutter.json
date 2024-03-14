@@ -8,5 +8,6 @@
         "component_name": "My Cut Cookie",
         "project_name": "my-cut-cookie",
         "project_slug": "my-cut-cookie"
-    }
+    },
+    "name": "gha"
 }

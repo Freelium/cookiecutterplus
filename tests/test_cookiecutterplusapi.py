@@ -14,8 +14,9 @@ def client():
 # Test the CookieCutterPlusAPI with a valid payload
 def test_cookiecutter_api_success(tmp_path, client):
     cookiecutterplus_payload = {
-        "template_payload": {
-            "gha": {
+        "template_payloads": [
+            {
+                "name": "gha",
                 "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
@@ -24,7 +25,7 @@ def test_cookiecutter_api_success(tmp_path, client):
                     "project_slug": "my-cut-cookie"
                 }
             },
-        },
+        ],
         "output_path": f"{tmp_path}",
         "no_input": True
     }
@@ -37,26 +38,27 @@ def test_cookiecutter_api_success(tmp_path, client):
 def test_cookiecutter_api_invalid_parameter(tmp_path, client):
     api = CookieCutterPlusAPI()
     cookiecutterplus_payload = {
-        "template_payload": {
-            "gha": {
-                "template_context": "tests/fixtures/basic-backwards",
+        "template_payloads": [
+            {
+                "name": "gha",
+                "template_context": "tests/fixtures/basic",
                 "template_path": "",
                 "context_vars": {
                     "component_name": "My Cut Cookie",
                     "project_name": "my-cut-cookie",
                     "project_slug": "my-cut-cookie"
-                }
+                },
+                "ccplus": {
+                    "badParameter": "badValue"
+                },
             },
-        },
-        "ccplus": {
-            "badParameter": "badValue"
-        },
+        ],
         "output_path": f"{tmp_path}",
         "no_input": True
     }
     # Send a POST request to the API
     response = client.post('/generate', json=cookiecutterplus_payload)
-    # Assert the response status code is 201
+    # Assert the response status code is 400
     assert response.status_code == 400
 
 # Import the persistencebuilder from cookiecutterplus class
@@ -64,8 +66,9 @@ def test_cookiecutter_api_invalid_parameter(tmp_path, client):
 # Test the CookieCutterPlusAPI with a persistence payload included
 def test_cookiecutter_api_persistence(mock_get_persister, client, tmp_path):
     cookiecutterplus_payload = {
-        "template_payload": {
-            "gha": {
+        "template_payloads": [
+            {
+                "name": "gha",
                 "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
@@ -74,7 +77,7 @@ def test_cookiecutter_api_persistence(mock_get_persister, client, tmp_path):
                     "project_slug": "my-cut-cookie"
                 }
             },
-        },
+        ],
         "output_path": f"{tmp_path}",
         "no_input": True,
         "persistence": {

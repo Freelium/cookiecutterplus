@@ -10,8 +10,9 @@ from unittest.mock import patch, MagicMock
 def test_cookiecutter_persistence(mock_get_persister, tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "template_payload": {
-            "gha": {
+        "template_payloads": [
+            {
+                "name": "gha",
                 "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
@@ -19,8 +20,8 @@ def test_cookiecutter_persistence(mock_get_persister, tmp_path):
                     "project_name": "my-cut-cookie",
                     "project_slug": "my-cut-cookie"
                 }
-            },
-        },
+            }
+        ],
         "no_input": True,
         "persistence": {
             "gh": {
@@ -51,8 +52,9 @@ def test_cookiecutter_persistence(mock_get_persister, tmp_path):
 def test_cookiecutter_basic_backwards_compat(tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "template_payload": {
-            "gha": {
+        "template_payloads": [
+            {
+                "name": "gha",
                 "template_context": "tests/fixtures/basic-backwards",
                 "template_path": "",
                 "context_vars": {
@@ -61,7 +63,7 @@ def test_cookiecutter_basic_backwards_compat(tmp_path):
                     "project_slug": "my-cut-cookie"
                 }
             }
-        },
+        ],
         "no_input": True
     }
 
@@ -81,8 +83,9 @@ def test_cookiecutter_basic_backwards_compat(tmp_path):
 def test_cookiecutter_basic(tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "template_payload": {
-            "gha": {
+        "template_payloads": [
+            {
+                "name": "gha",
                 "template_context": "tests/fixtures/basic",
                 "template_path": "",
                 "context_vars": {
@@ -94,7 +97,7 @@ def test_cookiecutter_basic(tmp_path):
                     "additive": "this is additive"
                 }
             }
-        },
+        ],
         "no_input": True
     }
 
@@ -117,8 +120,9 @@ def test_cookiecutter_basic(tmp_path):
 def test_cookiecutter_basic_invalid_additive(tmp_path):
     test_payload = {
         "output_path": tmp_path,
-        "template_payload": {
-            "gha": {
+        "template_payloads": [
+            {
+                "name": "gha",
                 "template_context": "tests/fixtures/basic",
                 "template_path": "",
                 "context_vars": {
@@ -130,7 +134,7 @@ def test_cookiecutter_basic_invalid_additive(tmp_path):
                     "invalid_attribute": "this should fail :("
                 }
             }
-        },
+        ],
         "no_input": True
     }
 

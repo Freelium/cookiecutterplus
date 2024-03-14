@@ -11,8 +11,8 @@ class CookieCutterPlus:
 
     def run(self):
         # Iterate over the payload and apply the templates
-        for template, template_values in self.state.get('template_payload').items():
-            print(f"Applying template:{template} with context_vars:{template_values}")
+        for template_values in self.state.get('template_payloads'):
+            print(f"Applying template: {template_values}")
             # Use a temporary directory to clone the template repo
             with tempfile.TemporaryDirectory() as temp_dir:
                 """
@@ -20,11 +20,11 @@ class CookieCutterPlus:
                     however it does have a dependency on Git or GH existing locally.
                 """
                 template = determine_repo_dir(template=template_values["template_context"],
-                                              directory=template_values["template_path"],
-                                              checkout="main",
-                                              clone_to_dir=temp_dir,
-                                              no_input=self.state.get('no_input'),
-                                              abbreviations="gh")[0]
+                                            directory=template_values["template_path"],
+                                            checkout="main",
+                                            clone_to_dir=temp_dir,
+                                            no_input=self.state.get('no_input'),
+                                            abbreviations="gh")[0]
                 # Evaluate the schema and patch the config
                 CookieCutterPlus.evaluate_schema(template, template_values)
                 cookiecutter(
@@ -67,17 +67,18 @@ class CookieCutterPlus:
 
     @staticmethod
     def validate_additive(template, template_values):
-        schema_path = os.path.join(template, 'ccplus.json')
-        schema = CookieCutterPlus.load_schema(schema_path)
+        config_path = os.path.join(template, 'ccplus.json')
+        config = CookieCutterPlus.load_ccplus_config(config_path)
+        schema = config.get('schema', dict())
         data = template_values.get('ccplus', None)
 
         validate(instance=data, schema=schema)
 
     @staticmethod
-    def load_schema(schema_path):
-        with open(schema_path, 'r') as file:
-            schema = json.load(file)
-        return schema
+    def load_ccplus_config(config_path):
+        with open(config_path, 'r') as file:
+            config = json.load(file)
+        return config
 
     @staticmethod
     def patch_config(template, template_values):

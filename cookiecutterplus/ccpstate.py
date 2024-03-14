@@ -32,10 +32,10 @@ class CCPStateManager:
                 'required': False,
                 'default': None
             },
-            'template_payload': {
-                'flags': ['-t', '--template-payload'],
+            'template_payloads': {
+                'flags': ['-t', '--template-payloads'],
                 'type': json.loads,
-                'help': 'The payload to use',
+                'help': 'The payloads to use',
                 'required': True,
                 'default': None
             }
