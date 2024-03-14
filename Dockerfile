@@ -33,7 +33,8 @@ RUN apt-get update \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 # Set the runtime environment variables
 ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
+    PATH="/app/.venv/bin:$PATH" \
+    OUTPUT_BASE=/app/output/
 # Copy the virtual environment from the builder image
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 # Copy the codebase to the working directory

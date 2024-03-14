@@ -8,6 +8,7 @@ import json, os, subprocess, tempfile
 class CookieCutterPlus:
     def __init__(self, state):
         self.state = state
+        self.output_base = os.getenv('OUTPUT_BASE', '')
 
     def run(self):
         # Iterate over the payload and apply the templates
@@ -32,7 +33,7 @@ class CookieCutterPlus:
                     no_input=self.state.get('no_input'),
                     overwrite_if_exists=True,
                     extra_context=template_values["context_vars"],
-                    output_dir=self.state.get('output_path'),
+                    output_dir=f"{self.output_base}{self.state.get('output_path')}",
                 )
         # If the persistence arg exists, run persist_output()
         if self.state.get('persistence'):
@@ -46,7 +47,7 @@ class CookieCutterPlus:
             # Setup the persistence class using the factory
             persistence_class = PersistenceBuilder.get_persister(persistence_type)
             # Persist the output
-            persistence_class.persist(self.state.get('output_path'),
+            persistence_class.persist(f"{self.output_base}{self.state.get('output_path')}",
                                       persistence_values["destination"])
 
     @staticmethod
