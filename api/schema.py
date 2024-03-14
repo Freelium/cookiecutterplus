@@ -7,13 +7,11 @@ class ContextVarsSchema(Schema):
     project_slug = fields.Str()
 
 class TemplatePayloadSchema(Schema):
-    name = fields.Str()
-    template_context = fields.Str()
-    template_path = fields.Str()
-    context_vars = fields.Nested(ContextVarsSchema())
-
-class CcplusSchema(Schema):
-    badParameter = fields.Str()
+    name = fields.Str(required=False)
+    template_context = fields.Str(required=True)
+    template_path = fields.Str(required=True)
+    context_vars = fields.Nested(ContextVarsSchema(), required=False)
+    ccplus = fields.Dict(keys=fields.Str(), values=fields.Raw())
 
 class RepoSchema(Schema):
     destination = fields.String(required=True)
@@ -25,6 +23,5 @@ class PersistenceSchema(Schema):
 class MainSchema(Schema):
     template_payloads = fields.List(fields.Nested(TemplatePayloadSchema), required=True)
     persistence = fields.Nested(PersistenceSchema, required=False)
-    ccplus = fields.Nested(CcplusSchema, required=False)
     output_path = fields.Str(required=False)
     no_input = fields.Boolean(required=False, dump_default=True)

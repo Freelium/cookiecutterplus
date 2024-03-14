@@ -59,10 +59,13 @@ class CookieCutterPlus:
             key = 'context_vars'
             CookieCutterPlus.validate_additive(template, template_values)
             context_vars = template_values.get(key, {})
-            context_vars['ccplus'] = template_values.get('ccplus', {})
+            context_vars.update(template_values.get('ccplus', {}))
+            print(f"Updating {key} with {context_vars}")
 
             if key not in template_values:
                 template_values[key] = context_vars
+            print(f"Updated {key} with {context_vars}")
+            print(f"Template values: {template_values}")
 
         CookieCutterPlus.patch_config(template, template_values)
 
@@ -72,6 +75,7 @@ class CookieCutterPlus:
         config = CookieCutterPlus.load_ccplus_config(config_path)
         schema = config.get('schema', dict())
         data = template_values.get('ccplus', None)
+        print(f"Validating {data} against {schema}")
 
         validate(instance=data, schema=schema)
 
@@ -91,7 +95,12 @@ class CookieCutterPlus:
         except FileNotFoundError:
             data = {}
 
-        data.update(template_values)
+        # We want to favor the context_vars value should any overlap occur
+        # but only if it's not None
+        context_vars = template_values.get('context_vars', {})
+        for key, value in context_vars.items():
+            if value is not None:
+                data[key] = value
 
         with open(cookiecutter_path, 'w') as cookiecutter_config:
             json.dump(data, cookiecutter_config, indent=4)

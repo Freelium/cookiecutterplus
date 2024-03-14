@@ -34,7 +34,8 @@ RUN apt-get update \
 # Set the runtime environment variables
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH" \
-    OUTPUT_BASE=/app/output/
+    OUTPUT_BASE=/app/output/ \
+    PYTHONUNBUFFERED=1
 # Copy the virtual environment from the builder image
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 # Copy the codebase to the working directory
