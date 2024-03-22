@@ -1,7 +1,8 @@
 from cookiecutter.main import cookiecutter
 from cookiecutter.repository import determine_repo_dir, is_repo_url
+from .ccpexception import CookieCutterPlusError
 from persistence.persistencebuilder import PersistenceBuilder
-from jsonschema import validate
+from jsonschema import validate, ValidationError
 import json, os, subprocess, tempfile
 
 
@@ -77,7 +78,10 @@ class CookieCutterPlus:
         data = template_values.get('ccplus', None)
         print(f"Validating {data} against {schema}")
 
-        validate(instance=data, schema=schema)
+        try:
+            validate(instance=data, schema=schema)
+        except ValidationError as ex:
+            raise CookieCutterPlusError('Issue validating cc+ additive') from ex
 
     @staticmethod
     def load_ccplus_config(config_path):

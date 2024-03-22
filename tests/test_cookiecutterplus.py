@@ -1,6 +1,6 @@
 import yaml, pytest, requests
 from jsonschema import ValidationError
-from cookiecutterplus import CookieCutterPlus
+from cookiecutterplus import CookieCutterPlus, CookieCutterPlusError
 from unittest.mock import patch, MagicMock
 
 
@@ -140,7 +140,7 @@ def test_cookiecutter_basic_invalid_additive(tmp_path):
 
     # Instantiate and run your class
     ccp = CookieCutterPlus(test_payload)
-    with pytest.raises(ValidationError) as exc_info:
+    with pytest.raises(CookieCutterPlusError) as exc_info:
         ccp.run()
     print(f'error value {exc_info.value}')
-    assert str(exc_info.value).startswith("'additive' is a required property")
+    assert str(exc_info.value).startswith("Issue validating cc+ additive")

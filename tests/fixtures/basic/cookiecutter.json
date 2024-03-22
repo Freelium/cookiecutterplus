@@ -1,7 +1,7 @@
 {
-    "component_name": "My Component",
-    "project_name": "terraform-{{ cookiecutter.component_name.lower().replace('_', '-') }}",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "component_name": "My Cut Cookie",
+    "project_name": "my-cut-cookie",
+    "project_slug": "my-cut-cookie",
     "template_context": "tests/fixtures/basic",
     "template_path": "",
     "context_vars": {
@@ -15,5 +15,6 @@
     "ccplus": {
         "additive": "this is additive"
     },
-    "name": "gha"
+    "name": "gha",
+    "additive": "this is additive"
 }

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from marshmallow import ValidationError
 from waitress import serve
-from cookiecutterplus import CookieCutterPlus 
+from cookiecutterplus import CookieCutterPlus, CookieCutterPlusError
 from .schema import MainSchema
 
 
@@ -28,6 +28,9 @@ class CookieCutterPlusAPI:
             response = jsonify({'message': 'CookieCutter generation completed successfully'}), 201
         except ValueError or ValidationError as e:
             response = jsonify({'error': f"Missing required parameters {e}"}), 400
+        except CookieCutterPlusError as e:
+            response = jsonify({'error': f"Cookiecutter plus issue {e}"}), 400
+
         
         return response
 

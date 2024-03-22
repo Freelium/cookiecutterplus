@@ -238,3 +238,6 @@ fabric.properties
 
 #Cookiecutter Plus specific
 output/
+
+# MacOS
+.DS_Store
