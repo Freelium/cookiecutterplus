@@ -34,7 +34,7 @@ class CookieCutterPlus:
                     no_input=self.state.get('no_input'),
                     overwrite_if_exists=True,
                     extra_context=template_values["context_vars"],
-                    output_dir=f"{self.output_base}{self.state.get('output_path')}",
+                    output_dir=self.output_base,
                 )
         # If the persistence arg exists, run persist_output()
         if self.state.get('persistence'):
