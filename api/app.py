@@ -22,19 +22,17 @@ class CookieCutterPlusAPI:
             print(f"Request JSON: {request.json}")
             valid_data = schema.load(request.json)
             print(f"Validated JSON: {valid_data}")
-        except ValidationError as e:
-            response = jsonify({'error': f"Invalid request {e}"}), 400
-        # After Validation, Instantiate your CookieCutterPlus class and run the process
-        try:
-            print(f"Initializing cc+ with: {valid_data}")
+            # After Validation, Instantiate your CookieCutterPlus class and run the process
             CookieCutterPlus(valid_data).run()
             response = jsonify({'message': 'CookieCutter generation completed successfully'}), 201
-        except ValueError or ValidationError as e:
+        except ValidationError as e:
+            print(f"Invalid request {e}")
+            response = jsonify({'error': f"Invalid request {e}"}), 400
+        except ValueError as e:
             response = jsonify({'error': f"Missing required parameters {e}"}), 400
         except CookieCutterPlusError as e:
             response = jsonify({'error': f"Cookiecutter plus issue {e}"}), 400
 
-        
         return response
 
     def get_flask_app(self):
