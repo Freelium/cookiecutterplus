@@ -17,6 +17,7 @@ class CookieCutterPlusAPI:
         # Validate the incoming request's content using MainSchema
         schema = MainSchema()
         response = None
+        valid_data = None
         try:
             print(f"Request JSON: {request.json}")
             valid_data = schema.load(request.json)
