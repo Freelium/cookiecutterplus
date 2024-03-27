@@ -21,10 +21,12 @@ class CookieCutterPlusAPI:
         try:
             print(f"Request JSON: {request.json}")
             valid_data = schema.load(request.json)
+            print(f"Validated JSON: {valid_data}")
         except ValidationError as e:
             response = jsonify({'error': f"Invalid request {e}"}), 400
         # After Validation, Instantiate your CookieCutterPlus class and run the process
         try:
+            print(f"Initializing cc+ with: {valid_data}")
             CookieCutterPlus(valid_data).run()
             response = jsonify({'message': 'CookieCutter generation completed successfully'}), 201
         except ValueError or ValidationError as e:
