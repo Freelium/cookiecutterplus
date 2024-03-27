@@ -81,6 +81,7 @@ class CookieCutterPlus:
         try:
             validate(instance=data, schema=schema)
         except ValidationError as ex:
+            print(f"Error validating cc+ additive: {ex}")
             raise CookieCutterPlusError('Issue validating cc+ additive') from ex
 
     @staticmethod
