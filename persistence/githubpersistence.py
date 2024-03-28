@@ -53,10 +53,10 @@ class GithubPersistence(TemplatePersister):
                 exit(1)
 
             print(f'Copying templates from {output_path} to {repo_path}')
-            dst = os.path.join(repo_path, output_path)
+            # dst = os.path.join(repo_path, output_path)
             # if os.path.isdir(single_directory):
-            print(f'Copying directory: {output_path} to {dst}')
-            shutil.copytree(output_path, dst, dirs_exist_ok=True)
+            print(f'Copying directory: {output_path} to {repo_path}')
+            shutil.copytree(output_path, repo_path, dirs_exist_ok=True)
             # else:
             #     shutil.copy2(src, dst)
             # for item in os.listdir(single_directory):
