@@ -52,7 +52,9 @@ class GithubPersistence(TemplatePersister):
                 print(f"Output path: {output_path} does not contain a folder")
                 exit(1)
 
+            print(f'Copying templates from {single_directory} to {repo_path}')
             for item in os.listdir(single_directory):
+                print(f'Copying item: {item}')
                 src = os.path.join(single_directory, item)
                 dst = os.path.join(repo_path, item)
                 if os.path.isdir(src):
