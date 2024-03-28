@@ -56,6 +56,7 @@ class GithubPersistence(TemplatePersister):
                 src = os.path.join(single_directory, item)
                 dst = os.path.join(repo_path, item)
                 if os.path.isdir(src):
+                    print(f'Copying directory: {src} to {dst}')
                     shutil.copytree(src, dst, dirs_exist_ok=True)
                 else:
                     shutil.copy2(src, dst)
