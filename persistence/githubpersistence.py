@@ -46,22 +46,28 @@ class GithubPersistence(TemplatePersister):
             print("Output path does not exist")
             exit(1)
         try:
-            single_directory = next((os.path.join(output_path, item) for item in os.listdir(
-                output_path) if os.path.isdir(os.path.join(output_path, item))), None)
-            if single_directory is None:
+            # single_directory = next((os.path.join(output_path, item) for item in os.listdir(
+            #     output_path) if os.path.isdir(os.path.join(output_path, item))), None)
+            if output_path is None:
                 print(f"Output path: {output_path} does not contain a folder")
                 exit(1)
 
-            print(f'Copying templates from {single_directory} to {repo_path}')
-            for item in os.listdir(single_directory):
-                print(f'Copying item: {item}')
-                src = os.path.join(single_directory, item)
-                dst = os.path.join(repo_path, item)
-                if os.path.isdir(src):
-                    print(f'Copying directory: {src} to {dst}')
-                    shutil.copytree(src, dst, dirs_exist_ok=True)
-                else:
-                    shutil.copy2(src, dst)
+            print(f'Copying templates from {output_path} to {repo_path}')
+            dst = os.path.join(repo_path, output_path)
+            # if os.path.isdir(single_directory):
+            print(f'Copying directory: {output_path} to {dst}')
+            shutil.copytree(output_path, dst, dirs_exist_ok=True)
+            # else:
+            #     shutil.copy2(src, dst)
+            # for item in os.listdir(single_directory):
+            #     print(f'Copying item: {item}')
+            #     src = os.path.join(single_directory, item)
+            #     dst = os.path.join(repo_path, item)
+            #     if os.path.isdir(src):
+            #         print(f'Copying directory: {src} to {dst}')
+            #         shutil.copytree(src, dst, dirs_exist_ok=True)
+            #     else:
+            #         shutil.copy2(src, dst)
             print("Templates copied successfully")
         except Exception as e:
             print(f"Failed to copy templates to destination repo: {e}")
