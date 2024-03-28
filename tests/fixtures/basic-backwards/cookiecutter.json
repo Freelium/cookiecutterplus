@@ -1,12 +1,13 @@
 {
-    "component_name": "My Component",
-    "project_name": "terraform-{{ cookiecutter.component_name.lower().replace('_', '-') }}",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "component_name": "My Cut Cookie",
+    "project_name": "my-cut-cookie",
+    "project_slug": "my-cut-cookie",
     "template_context": "tests/fixtures/basic-backwards",
     "template_path": "",
     "context_vars": {
         "component_name": "My Cut Cookie",
         "project_name": "my-cut-cookie",
         "project_slug": "my-cut-cookie"
-    }
+    },
+    "name": "gha"
 }

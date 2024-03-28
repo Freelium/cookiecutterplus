@@ -1,29 +1,39 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from marshmallow import ValidationError
 from waitress import serve
-from cookiecutterplus import CookieCutterPlus 
+from cookiecutterplus import CookieCutterPlus, CookieCutterPlusError
 from .schema import MainSchema
 
 
 class CookieCutterPlusAPI:
     def __init__(self):
         self.app = Flask(__name__)
+        CORS(self.app, resources={r"/*": {"origins": "*"}})
         self.app.route('/generate', methods=['POST'])(self.generate)
 
     @staticmethod
     def generate():
         # Validate the incoming request's content using MainSchema
         schema = MainSchema()
+        response = None
+        valid_data = None
         try:
+            print(f"Request JSON: {request.json}")
             valid_data = schema.load(request.json)
-        except ValidationError as e:
-            return jsonify({'error': f"Invalid request {e}"}), 400
-        # After Validation, Instantiate your CookieCutterPlus class and run the process
-        try:
+            print(f"Validated JSON: {valid_data}")
+            # After Validation, Instantiate your CookieCutterPlus class and run the process
             CookieCutterPlus(valid_data).run()
-            return jsonify({'message': 'CookieCutter generation completed successfully'}), 201
-        except ValueError or ValidationError as e:
-            return jsonify({'error': f"Missing required parameters {e}"}), 400
+            response = jsonify({'message': 'CookieCutter generation completed successfully'}), 201
+        except ValidationError as e:
+            print(f"Invalid request {e}")
+            response = jsonify({'error': f"Invalid request {e}"}), 400
+        except ValueError as e:
+            response = jsonify({'error': f"Missing required parameters {e}"}), 400
+        except CookieCutterPlusError as e:
+            response = jsonify({'error': f"Cookiecutter plus issue {e}"}), 400
+
+        return response
 
     def get_flask_app(self):
         return self.app
